@@ -32,11 +32,8 @@ app.post(`${VERSION}/contact`, function (req, res) {
     } catch (e) {
         return res.sendStatus(401)
     }
-    if (Object.keys(req.body).length !== 0) {
-        const newContact = { ...req.body, id: v4() } as Contact
-        contacts.push(newContact)
-    }
-    save(req.query.password as string, JSON.stringify(contacts))
+    const newContact = { ...req.body, id: v4() } as Contact
+    save(req.query.password as string, JSON.stringify([...contacts, newContact]))
     res.sendStatus(200)
 });
 
@@ -64,6 +61,12 @@ app.get(`${VERSION}/contacts`, function (req, res) {
     } catch (e) {
         return res.sendStatus(401)
     }
+});
+
+app.post(`${VERSION}/store`, function (req, res) {
+    if (typeof req.body.password !== 'string') return res.sendStatus(400)
+    save(req.body.password as string, JSON.stringify([]))
+    res.send([])
 });
 
 app.head(`${VERSION}/store`, function (req, res) {
