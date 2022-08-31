@@ -10,7 +10,7 @@ const pathToStore = process.env.STORE ?? './store'
 
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: false }));
 
 type Contact = { id: string, name: string, phone: number, email: string, address: string }
 
