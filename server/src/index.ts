@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-type Contact = { id: string, name: string, phone: number, email: string, address: string }
+type Contact = { id: string, name: string, phone: string, email: string, address: string }
 
 const save = (password: string, data: string): void => {
     fs.writeFileSync(pathToStore, JSON.stringify(encrypt(password, data)), 'utf-8')
