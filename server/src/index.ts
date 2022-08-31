@@ -24,6 +24,13 @@ const getContacts = (password: string): Contact[] => {
     return JSON.parse(decrypt(password, JSON.parse(encrypted)));
 }
 
+app.all('/*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    next();
+});
+
 app.post(`${VERSION}/contact`, function (req, res) {
     if (typeof req.query.password !== 'string') return res.sendStatus(400)
     let contacts = []
@@ -66,7 +73,7 @@ app.get(`${VERSION}/contacts`, function (req, res) {
 app.post(`${VERSION}/store`, function (req, res) {
     if (typeof req.body.password !== 'string') return res.sendStatus(400)
     save(req.body.password as string, JSON.stringify([]))
-    res.send([])
+    res.sendStatus(200)
 });
 
 app.head(`${VERSION}/store`, function (req, res) {

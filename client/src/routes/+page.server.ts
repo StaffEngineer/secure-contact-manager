@@ -1,9 +1,9 @@
 import { error } from '@sveltejs/kit';
 import { api } from './api';
-import type { PageServerLoad, Action } from './$types';
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-    const response = await api('HEAD', `store`);
+    const response = await api('HEAD', 'store');
 
     if (response.status === 404) {
         return { storeExist: false };

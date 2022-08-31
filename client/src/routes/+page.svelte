@@ -1,57 +1,65 @@
 <script lang="ts">
-	import Counter from '$lib/Counter.svelte';
+    import type { PageData } from './$types';
+    import { store } from '../lib/store';
+    import { goto } from '$app/navigation'
+    import { api } from './api';
+
+    export let data: PageData;
+
+    let password = '';
+    let isWrongPassword = false;
+
+    const handleOnSubmit = async () => {
+        if (!data.storeExist && password !== '') {
+            const response = await api('POST', 'store', { password });
+            if (response.status === 200) {
+                store.set({ password, contacts: [] })
+                goto('/contacts')
+            }
+        } else {
+            const response = await api('GET', `contacts?password=${password}`);
+            if (response.status === 200) {
+                const contacts = await response.json()
+                console.log(contacts)
+                store.set({ password, contacts })
+                goto('/contacts')
+            }
+            if (response.status === 401) {
+                isWrongPassword = true
+            }
+        }
+    }
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+    <title>Secure Contact Manager</title>
+    <meta name="description" content="Secure Contact Manager" />
 </svelte:head>
 
-<section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset="svelte-welcome.webp" type="image/webp" />
-				<img src="svelte-welcome.png" alt="Welcome" />
-			</picture>
-		</span>
-
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
-</section>
+<div class="startup">
+    <div>
+        <p>Welcome to Secure Contact Manager</p>
+        {#if data.storeExist }
+            <p>Please enter a password for your contact data file</p>
+        {:else }
+            <p>Please enter a password for your new contact data file</p>
+        {/if}
+        <form on:submit|preventDefault={handleOnSubmit}>
+            <input bind:value={password} on:input={() => { isWrongPassword = false }}>
+            <button type="submit">OK</button>
+        </form>
+        {#if isWrongPassword }
+            <p class="error">Password is wrong, please try again</p>
+        {/if}
+    </div>
+</div>
 
 <style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 1;
-	}
+    .startup {
+        height: 300px;
+    }
 
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
+    .startup .error {
+        color: rgb(255, 0, 0);
+    }
 </style>

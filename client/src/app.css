@@ -16,7 +16,11 @@
 	--column-margin-top: 4rem;
 }
 
-body {
+html, body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 	min-height: 100vh;
 	margin: 0;
 	background-color: var(--primary-color);
@@ -42,12 +46,6 @@ body::before {
 		rgba(255, 255, 255, 0) 100%
 	);
 	opacity: 0.05;
-}
-
-#svelte {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
 }
 
 h1,
