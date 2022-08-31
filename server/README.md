@@ -4,7 +4,7 @@
 
 1. `npm i`
 2. `npm run build`
-3. `STORE='./store' node dist/index.js` (tested on node v16.17.0)
+3. `STORE='./store' node dist/index.js`
 
 ## TODO
 

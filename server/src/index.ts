@@ -4,7 +4,7 @@ import * as fs from 'fs'
 
 import { encrypt, decrypt } from './crypto'
 
-const PORT = 3000
+const PORT = 3001
 const VERSION = '/api/v1'
 const pathToStore = process.env.STORE ?? './store'
 
