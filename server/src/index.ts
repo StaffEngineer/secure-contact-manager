@@ -6,7 +6,7 @@ import { encrypt, decrypt } from './crypto'
 
 const PORT = 3001
 const VERSION = '/api/v1'
-const pathToStore = process.env.STORE ?? './store'
+const pathToStore = process.env.STORE_PATH ?? './store'
 
 const app = express();
 app.use(express.json());

@@ -20,7 +20,6 @@
             const response = await api('GET', `contacts?password=${password}`);
             if (response.status === 200) {
                 const contacts = await response.json()
-                console.log(contacts)
                 store.set({ password, contacts })
                 goto('/contacts')
             }
