@@ -1,6 +1,6 @@
 # Secure Contact Manager
 
-![app](https://github.com/Dima-dev1/secure-contact-manager/blob/main/client/E5pY9WfYo1.gif)
+![app](https://github.com/Dima-dev1/secure-contact-manager/blob/main/client/EsBurgcAjq.gif)
 
 To run the application please follow `README.md` instructions in `server` and `client` folders.  
 
