@@ -44,7 +44,7 @@
             <p>Please enter a password for your new contact data file</p>
         {/if}
         <form on:submit|preventDefault={handleOnSubmit}>
-            <input bind:value={password} on:input={() => { isWrongPassword = false }}>
+            <input type="password" bind:value={password} on:input={() => { isWrongPassword = false }}>
             <button type="submit">OK</button>
         </form>
         {#if isWrongPassword }
