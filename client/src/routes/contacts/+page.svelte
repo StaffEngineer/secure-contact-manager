@@ -3,7 +3,7 @@
     import VirtualList from 'svelte-tiny-virtual-list';
     import Contact from '../../lib/Contact.svelte';
 
-    let selectedIndex
+    let selectedIndex = -1
 </script>
 
 <h1>Contacts</h1>
@@ -19,7 +19,9 @@
                 </div>
             </VirtualList>
         </div>
-        <Contact {...$store.contacts[selectedIndex]}/>
+        {#key selectedIndex}
+           <Contact {...selectedIndex !== -1 && $store.contacts[selectedIndex]}/>
+        {/key}
     {/if}
 </div>
 
@@ -28,6 +30,7 @@
         display: flex;
         margin: 10px;
         border: solid;
+        min-width: 400px;
     }
 
     .contacts-list {

@@ -57,8 +57,4 @@
     .startup {
         height: 300px;
     }
-
-    .startup .error {
-        color: rgb(255, 0, 0);
-    }
 </style>
