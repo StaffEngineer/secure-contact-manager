@@ -1,19 +1,61 @@
 <script lang="ts">
-    export let name: string;
-    export let phone: string;
-    export let email: string;
-    export let address: string;
-    export let id: string;
+    import { api } from '../routes/api';
+    import { store } from '../lib/store';
+    import { get } from 'svelte/store';
+
+    export let name: string ='';
+    export let phone: string = '';
+    export let email: string = '';
+    export let address: string = '';
+    export let id: string = '';
 
     let errorMessage = '';
 
-    function handleAdd() {
-        errorMessage = name == null || name === '' ? 'Name is required for creating a new contact' : ''
+    const { password } = get(store)
+
+    async function updateContactsList() {
+        const response = await api('GET', `contacts?password=${password}`);
+        if (response.status === 200) {
+            const contacts = await response.json()
+            store.set({ password, contacts })
+        }
     }
 
-    function handleEdit() {
+    function isValid(): boolean {
+        errorMessage = '';
+        if (!address) errorMessage = 'Address is required'
+        if (!email) errorMessage = 'Email is required'
+        if (!phone) errorMessage = 'Phone is required'
+        if (!name) errorMessage = 'Name is required'
+        return errorMessage === ''
+    }
+
+    async function handleAdd() {
+        if (!isValid()) return
+
+        const response = await api('POST', `contact?password=${password}`, { name, phone, email, address });
+        if (response.status === 200) {
+            await updateContactsList()
+        } else {
+            errorMessage = 'Error while creating a new contact';
+        }
+    }
+
+    async function handleEdit() {
         if (id == null) {
             errorMessage = 'Select contact for editing'
+            return
+        }
+
+        if (!isValid()) return
+
+        const updatedContact = { id, name, phone, email, address }
+        const response = await api('PUT', `contact/${id}?password=${password}`, updatedContact);
+
+        if (response.status === 200) {
+            await updateContactsList()
+        } else {
+            errorMessage = `Error while updating ${name} contact`;
         }
     }
 </script>

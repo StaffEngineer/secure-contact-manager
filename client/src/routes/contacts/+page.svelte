@@ -2,8 +2,11 @@
     import { store } from '../../lib/store';
     import VirtualList from 'svelte-tiny-virtual-list';
     import Contact from '../../lib/Contact.svelte';
+    import { get } from 'svelte/store';
 
     let selectedIndex = -1
+
+    const { password } = get(store)
 </script>
 
 <h1>Contacts</h1>
@@ -19,10 +22,15 @@
                 </div>
             </VirtualList>
         </div>
-        {#key selectedIndex}
-           <Contact {...selectedIndex !== -1 && $store.contacts[selectedIndex]}/>
-        {/key}
     {/if}
+    {#if password }
+        {#key selectedIndex}
+            <Contact {...selectedIndex !== -1 && { ...$store.contacts[selectedIndex]}}/>
+        {/key}
+        {:else }
+           <p>Please, log in again.</p>
+    {/if}
+
 </div>
 
 <style>
@@ -31,6 +39,10 @@
         margin: 10px;
         border: solid;
         min-width: 400px;
+    }
+
+    .contacts-container p {
+        margin: 5px;
     }
 
     .contacts-list {

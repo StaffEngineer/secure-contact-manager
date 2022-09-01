@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-type Contact = { id: string, name: string, phone: string, email: string, address: string }
+export type Contact = { name: string, id: string, phone: string, email: string, address: string }
 
 type State = { password: string, contacts: Contact[] }
 

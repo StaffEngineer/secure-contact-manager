@@ -41,7 +41,7 @@ app.post(`${VERSION}/contact`, function (req, res) {
     }
     const newContact = { ...req.body, id: v4() } as Contact
     save(req.query.password as string, JSON.stringify([...contacts, newContact]))
-    res.sendStatus(200)
+    res.send({ id: newContact.id })
 });
 
 app.put(`${VERSION}/contact/:id`, function (req, res) {
@@ -53,7 +53,7 @@ app.put(`${VERSION}/contact/:id`, function (req, res) {
         return res.sendStatus(401)
     }
     const index = contacts.findIndex(contact => contact.id === req.params.id)
-    if (index === -1) res.sendStatus(403)
+    if (index === -1) return res.sendStatus(403)
     contacts[index] = { ...contacts[index], ...req.body }
     save(req.query.password as string, JSON.stringify(contacts))
     res.sendStatus(200)
