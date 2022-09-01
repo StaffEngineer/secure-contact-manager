@@ -11,4 +11,5 @@
 * add unit tests (consider using `jest`)
 * validation of input fields
 * add proper authentification between frontend and backend (consider using JSON Web Token)
+  * transfer password securely
 * add nice styling
