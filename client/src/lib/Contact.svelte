@@ -3,11 +3,11 @@
     import { store } from '../lib/store';
     import { get } from 'svelte/store';
 
-    export let name: string ='';
-    export let phone: string = '';
-    export let email: string = '';
-    export let address: string = '';
-    export let id: string = '';
+    export let name ='';
+    export let phone = '';
+    export let email = '';
+    export let address = '';
+    export let id = '';
 
     let errorMessage = '';
 
@@ -23,10 +23,10 @@
 
     function isValid(): boolean {
         errorMessage = '';
-        if (!address) errorMessage = 'Address is required'
-        if (!email) errorMessage = 'Email is required'
-        if (!phone) errorMessage = 'Phone is required'
-        if (!name) errorMessage = 'Name is required'
+        if (address === '') errorMessage = 'Address is required'
+        if (email === '') errorMessage = 'Email is required'
+        if (phone === '') errorMessage = 'Phone is required'
+        if (name === '') errorMessage = 'Name is required'
         return errorMessage === ''
     }
 
@@ -42,7 +42,7 @@
     }
 
     async function handleEdit() {
-        if (id == null) {
+        if (id === '') {
             errorMessage = 'Select contact for editing'
             return
         }
