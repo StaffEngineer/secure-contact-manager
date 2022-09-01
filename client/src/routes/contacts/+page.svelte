@@ -55,6 +55,9 @@
 
     .contact-item {
         margin: 5px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
     }
 
     .contact-item:focus {
