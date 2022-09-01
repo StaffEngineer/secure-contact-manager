@@ -6,6 +6,8 @@
 2. `npm run build`
 3. `STORE_PATH='./store' node dist/index.js`
 
+Consider running backend with prefilled store to see a scrollable contact list using: `STORE_PATH='./test_store' node dist/index.js`. Password is `password1`.
+
 ## TODO
 
 * add unit tests (consider using `jest`)

@@ -36,3 +36,18 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+# Secure Contact Manager frontend app
+
+## Running app
+
+1. `npm i`
+2. `npm run build`
+3. `npm run preview -- --open`
+
+## TODO
+
+* add unit tests (consider using `jest`)
+* validation of input fields
+* add proper authentification between frontend and backend (consider using JSON Web Token)
+* add nice styling
