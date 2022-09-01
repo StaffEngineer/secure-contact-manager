@@ -1,7 +1,5 @@
 # Secure Contact Manager frontend app
 
-![app](https://github.com/Dima-dev1/secure-contact-manager/blob/main/client/E5pY9WfYo1.gif)
-
 ## Running app
 
 1. `npm i`
