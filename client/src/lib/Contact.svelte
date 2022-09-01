@@ -1,7 +1,8 @@
 <script lang="ts">
-    import { api } from '../routes/api';
-    import { store } from '../lib/store';
     import { get } from 'svelte/store';
+
+    import { api } from './api';
+    import { store } from './store';
 
     export let name ='';
     export let phone = '';

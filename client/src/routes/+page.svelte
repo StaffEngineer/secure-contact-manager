@@ -1,8 +1,9 @@
 <script lang="ts">
     import type { PageData } from './$types';
+
     import { store } from '../lib/store';
+    import { api } from '../lib/api';
     import { goto } from '$app/navigation'
-    import { api } from './api';
 
     export let data: PageData;
 

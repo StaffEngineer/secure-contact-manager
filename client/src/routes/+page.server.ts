@@ -1,6 +1,7 @@
 import { error } from '@sveltejs/kit';
-import { api } from './api';
 import type { PageServerLoad } from './$types';
+
+import { api } from '../lib/api';
 
 export const load: PageServerLoad = async () => {
     const response = await api('HEAD', 'store');
