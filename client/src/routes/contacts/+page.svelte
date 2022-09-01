@@ -60,11 +60,11 @@
 <style>
     .filter {
         margin: 10px 0 0 10px;
-        width: 35px
+        width: 60px
     }
 
     .contacts-panel {
-        width: 50%;
+        width: 60%;
     }
 
     .contacts-container {
