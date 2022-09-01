@@ -5,24 +5,44 @@
     import { get } from 'svelte/store';
 
     let selectedIndex = -1
+    let needle: string;
 
     const { password } = get(store)
 
-    let needle;
+    let indexes: number[] | undefined
+
+    function handleFilter() {
+        indexes = undefined
+        if (needle == null || needle === '') return
+        const { contacts } = get(store)
+
+        indexes = []
+        contacts.forEach((contact, index) => {
+            const text = `${contact.name}${contact.phone}${contact.email}${contact.address}`
+            if (text.toLowerCase().includes(needle.toLowerCase())) {
+                indexes!.push(index)
+            }
+        })
+    }
 </script>
 
 <h1>Contacts</h1>
 <div class="contacts-container">
     {#if $store.contacts.length > 0 }
         <div class="contacts-panel">
-            <input class='filter' bind:value={needle} placeholder="Filter">
+            <input class='filter' bind:value={needle} placeholder="Filter" on:input={handleFilter}>
             <div class="contacts-list">
                 <VirtualList
                         height={400}
                         itemCount={$store.contacts.length}
                         itemSize={25}>
                     <div slot="item" let:index let:style {style} on:click={() => { selectedIndex = index}}>
-                        <div tabindex={index} class="contact-item" >{index+1}. {$store.contacts[index].name}</div>
+                        {#if indexes === undefined  }
+                             <div tabindex={index} class="contact-item" >{index+1}. {$store.contacts[index].name}</div>
+                        {/if}
+                        {#if indexes && indexes.length && indexes.includes(index)  }
+                            <div tabindex={index} class="contact-item" >{index+1}. {$store.contacts[index].name}</div>
+                        {/if}
                     </div>
                 </VirtualList>
             </div>
