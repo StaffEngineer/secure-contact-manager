@@ -7,20 +7,25 @@
     let selectedIndex = -1
 
     const { password } = get(store)
+
+    let needle;
 </script>
 
 <h1>Contacts</h1>
 <div class="contacts-container">
     {#if $store.contacts.length > 0 }
-        <div class="contacts-list">
-            <VirtualList
-                    height={400}
-                    itemCount={$store.contacts.length}
-                    itemSize={25}>
-                <div slot="item" let:index let:style {style} on:click={() => { selectedIndex = index}}>
-                    <div tabindex={index} class="contact-item" >{index+1}. {$store.contacts[index].name}</div>
-                </div>
-            </VirtualList>
+        <div class="contacts-panel">
+            <input class='filter' bind:value={needle} placeholder="Filter">
+            <div class="contacts-list">
+                <VirtualList
+                        height={400}
+                        itemCount={$store.contacts.length}
+                        itemSize={25}>
+                    <div slot="item" let:index let:style {style} on:click={() => { selectedIndex = index}}>
+                        <div tabindex={index} class="contact-item" >{index+1}. {$store.contacts[index].name}</div>
+                    </div>
+                </VirtualList>
+            </div>
         </div>
     {/if}
     {#if password }
@@ -34,6 +39,15 @@
 </div>
 
 <style>
+    .filter {
+        margin: 10px 0 0 10px;
+        width: 35px
+    }
+
+    .contacts-panel {
+        width: 50%;
+    }
+
     .contacts-container {
         display: flex;
         margin: 10px;
@@ -50,7 +64,6 @@
         height: 400px;
         margin: 10px;
         border: solid;
-        width: 60%;
     }
 
     .contact-item {
